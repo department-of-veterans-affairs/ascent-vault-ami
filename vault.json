@@ -1,0 +1,62 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": ""
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "us-east-1",
+      "source_ami": "ami-6d1c2007",
+      "instance_type": "t2.micro",
+      "ssh_username": "centos",
+      "ssh_pty": true,
+      "ami_name": "ascent-vault {{timestamp}}",
+      "launch_block_device_mappings": [
+        {
+          "device_name": "/dev/sda1",
+          "volume_size": 8,
+          "volume_type": "gp2",
+          "delete_on_termination": true
+        }
+      ],
+      "tags": {
+        "name": "ascent-vault"
+      },
+      "snapshot_tags": 
+      {
+        "name": "ascent-vault"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "vault.hcl",
+      "destination": "~/vault.hcl"
+    },
+    {
+      "type": "file",
+      "source": "vault.service",
+      "destination": "~/vault.service"
+    },
+    {
+      "type": "file",
+      "source": "vault.pem",
+      "destination": "~/server.pem"
+    },
+    {
+      "type": "file",
+      "source": "vault.key",
+      "destination": "~/server.key"
+    },
+    {
+      "type": "shell",
+      "scripts": [
+        "install-vault.sh"
+      ]
+    }
+  ]
+}
