@@ -54,8 +54,8 @@
     },
     {
       "type": "file",
-      "source": "vault-server.sh",
-      "destination": "~/vault-server.sh"
+      "source": "vault-redirectaddr.sh",
+      "destination": "~/vault-redirectaddr.sh"
     },
     {
       "type": "file",

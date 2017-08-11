@@ -14,7 +14,6 @@ sudo mkdir /etc/vault.d
 sudo mv server.pem /etc/vault.d/server.pem
 sudo mv server.key /etc/vault.d/server.key
 sudo mv vault.hcl /etc/vault.d/vault.hcl
-sudo mv vault-server.sh /etc/vault.d/vault-server.sh
 sudo chown -R root:root /etc/vault.d
 sudo chmod -R 0700 /etc/vault.d
 
@@ -25,3 +24,8 @@ sudo chmod 0700 /etc/systemd/system/vault.service
 
 # Enable Service
 sudo systemctl enable vault.service
+
+# Add VAULT_REDIRECT_ADDR to environment
+sudo mv vault-redirectaddr.sh /etc/profile.d/vault-redirectaddr.sh
+sudo chmod 644 /etc/profile.d/vault-redirectaddr.sh
+sudo chown root:root /etc/profile.d/vault-redirectaddr.sh
