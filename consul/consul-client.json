@@ -13,7 +13,7 @@
       "instance_type": "t2.micro",
       "ssh_username": "centos",
       "ssh_pty": true,
-      "ami_name": "ascent-consul-server {{timestamp}}",
+      "ami_name": "ascent-consul-client {{timestamp}}",
       "launch_block_device_mappings": [
         {
           "device_name": "/dev/sda1",
@@ -23,11 +23,11 @@
         }
       ],
       "tags": {
-        "name": "ascent-consul-server"
+        "name": "ascent-consul-client"
       },
       "snapshot_tags": 
       {
-        "name": "ascent-consul-server"
+        "name": "ascent-consul-client"
       }
     }
   ],
@@ -39,7 +39,7 @@
     },
     {
       "type": "file",
-      "source": "consul-server-config.json",
+      "source": "consul-client-config.json",
       "destination": "~/consul-config.json"
     },
     {
