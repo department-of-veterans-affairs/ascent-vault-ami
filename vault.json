@@ -53,9 +53,27 @@
       "destination": "~/server.key"
     },
     {
+      "type": "file",
+      "source": "vault-server.sh",
+      "destination": "~/vault-server.sh"
+    },
+    {
+      "type": "file",
+      "source": "consul/consul.service",
+      "destination": "~/consul.service"
+    },
+    {
+      "type": "file",
+      "source": "consul/consul-client-config.json",
+      "destination": "~/consul-config.json"
+    },
+    {
       "type": "shell",
       "scripts": [
-        "install-vault.sh"
+        "prereqs.sh",
+        "install-vault.sh",
+        "consul/install-consul.sh",
+        "consul/configure-service.sh"
       ]
     }
   ]
