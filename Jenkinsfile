@@ -14,14 +14,12 @@ pipeline {
     }
     stage('Build Consul Server AMI') {
       steps {
-        script {
-          // define the secrets and the env variables
-          def secrets = [
-              [$class: 'VaultSecret', path: 'secret/jenkins/aws', secretValues: [
-                  [$class: 'VaultSecretValue', envVar: 'AWS_ACCESS_KEY', vaultKey: 'access_key'],
-                  [$class: 'VaultSecretValue', envVar: 'AWS_SECRET_KEY', vaultKey: 'secret_key']]]
-          ]
-        }
+        // define the secrets and the env variables
+        def secrets = [
+            [$class: 'VaultSecret', path: 'secret/jenkins/aws', secretValues: [
+                [$class: 'VaultSecretValue', envVar: 'AWS_ACCESS_KEY', vaultKey: 'access_key'],
+                [$class: 'VaultSecretValue', envVar: 'AWS_SECRET_KEY', vaultKey: 'secret_key']]]
+        ]
 
         wrap([$class: 'VaultBuildWrapper', vaultSecrets: secrets]) {
             dir('consul') {
