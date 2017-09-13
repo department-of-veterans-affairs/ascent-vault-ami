@@ -1,5 +1,5 @@
 pipeline {
-  agent node {
+  agent any {
     // define the secrets and the env variables
     def secrets = [
         [$class: 'VaultSecret', path: 'secret/jenkins/aws', secretValues: [
