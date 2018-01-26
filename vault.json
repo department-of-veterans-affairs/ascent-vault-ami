@@ -24,11 +24,17 @@
         }
       ],
       "tags": {
-        "name": "ascent-vault"
+        "name": "ascent-vault",
+        "Vault Version": "0.9.1",
+        "Consul Version": "1.0.3"
       },
       "snapshot_tags": 
       {
         "name": "ascent-vault"
+      },
+      "run_tags": {
+        "Vault Version": "0.9.1",
+        "Consul Version": "1.0.3"
       }
     }
   ],
