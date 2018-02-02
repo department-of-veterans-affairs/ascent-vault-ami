@@ -1,12 +1,37 @@
 @Library('ascent') _
 
-packerPipeline {
-    directory = 'consul'
-    packerFile = 'consul-server.json'
-    vars = [aws_region: 'us-gov-west-1']
-}
+node {
+        properties([
+            disableConcurrentBuilds(),
+            buildDiscarder(logRotator(daysToKeepStr: '5', numToKeepStr: '5'))
+        ])
 
-packerPipeline {
-    packerFile = 'vault.json'
-    vars = [aws_region: 'us-gov-west-1']
-}
+        try {
+            stage('Checkout SCM') {
+                checkout scm
+            }
+            
+            //Build Consul AMI
+            packerBuild {
+                directory = consul
+                vars = [aws_region: 'us-gov-west-1']
+                packerFile = 'consul-server.json'
+            }
+
+            stage('Generate Vault Certificates') {
+                dir("private-tls-cert") {
+                    sh "terraform apply"
+                }
+            }
+
+            //Build Consul AMI
+            packerBuild {
+                directory = .
+                vars = [aws_region: 'us-gov-west-1']
+                packerFile = 'vault.json'
+            }
+        } finally {
+            //Send build notifications if needed
+            notifyBuild(currentBuild.result)
+        }
+    }
