@@ -2,7 +2,9 @@
   "variables": {
     "aws_access_key": "",
     "aws_secret_key": "",
-    "aws_region": "us-gov-west-1"
+    "aws_region": "us-gov-west-1",
+    "ami_version": "{{timestamp}}",
+    "base_ami_version": "*"
   },
   "builders": [
     {
@@ -10,11 +12,16 @@
       "access_key": "{{user `aws_access_key`}}",
       "secret_key": "{{user `aws_secret_key`}}",
       "region": "{{user `aws_region`}}",
-      "source_ami": "ami-1fbe067e",
+      "source_ami_filter": {
+        "filters": {
+          "name": "ascent-base-{{user `base_ami_version`}}"
+        },
+        "most_recent": true
+      },
       "instance_type": "t2.micro",
       "ssh_username": "ec2-user",
       "ssh_pty": true,
-      "ami_name": "ascent-consul-server {{timestamp}}",
+      "ami_name": "ascent-consul-server-{{user `ami_version`}}",
       "launch_block_device_mappings": [
         {
           "device_name": "/dev/sda1",
@@ -33,6 +40,12 @@
     }
   ],
   "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+          "sudo yum -y update"
+      ]
+    },
     {
       "type": "file",
       "source": "consul.service",

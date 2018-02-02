@@ -1,0 +1,12 @@
+######## Packer Files ##########
+# Cache objects
+packer_cache/
+
+# For built boxes
+*.box
+
+######## Terraform Files #######
+**/.terraform
+
+######## Generated Certificates #######
+private-tls-cert/cert
