@@ -13,7 +13,7 @@ node {
             
             //Build Consul AMI
             packerBuild {
-                directory = consul
+                directory = 'consul'
                 vars = [aws_region: 'us-gov-west-1']
                 packerFile = 'consul-server.json'
             }
@@ -27,7 +27,7 @@ node {
 
             //Build Consul AMI
             packerBuild {
-                directory = .
+                directory = '.'
                 vars = [aws_region: 'us-gov-west-1']
                 packerFile = 'vault.json'
             }
