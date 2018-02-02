@@ -9,4 +9,4 @@ packer_cache/
 **/.terraform
 
 ######## Generated Certificates #######
-private-tls-cert/cert
+private-tls-cert/cert/*.pem
