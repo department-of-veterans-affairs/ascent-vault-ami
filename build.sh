@@ -23,8 +23,9 @@ CURRENT_DIR=`pwd`
 cd $BASE_DIR/consul
 packer build -var-file $VAR_FILE consul-server.json
 
-# Build Consul Client AMI
-packer build -var-file $VAR_FILE consul-server.json
+# Build the Vault Certificates
+cd $BASE_DIR/private-tls-cert
+terraform apply
 
 cd $BASE_DIR
 # Build Vault Server AMI
