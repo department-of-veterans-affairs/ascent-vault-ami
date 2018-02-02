@@ -20,6 +20,7 @@ node {
 
             stage('Generate Vault Certificates') {
                 dir("private-tls-cert") {
+                    sh 'terraform init'
                     sh "terraform apply"
                 }
             }
