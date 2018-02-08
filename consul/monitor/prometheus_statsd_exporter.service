@@ -1,0 +1,14 @@
+[Unit]
+
+Description=startup promethues statsd scraper
+
+[Service]
+
+User=ec2-user
+
+ExecStart=/apps/prometheus/statsd_exporter-0.6.0.linux-amd64/statsd_exporter
+
+[Install]
+
+WantedBy=default.target
+

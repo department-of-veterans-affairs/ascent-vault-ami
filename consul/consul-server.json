@@ -57,11 +57,17 @@
       "destination": "~/consul-config.json"
     },
     {
+      "type": "file",
+      "source": "./monitor/",
+      "destination": "/tmp/"
+    }
+    {
       "type": "shell",
       "scripts": [
         "prereqs.sh",
         "install-consul.sh",
-        "configure-service.sh"
+        "configure-service.sh",
+	"setup_monitor_statsd.sh"
       ]
     }
   ]
