@@ -60,7 +60,7 @@
       "type": "file",
       "source": "./monitor/",
       "destination": "/tmp/"
-    }
+    },
     {
       "type": "shell",
       "scripts": [
