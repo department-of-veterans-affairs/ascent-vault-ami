@@ -3,7 +3,6 @@
 node {
         properties([
             disableConcurrentBuilds(),
-            pipelineTriggers([pollSCM('*/5 * * * *')]),
             buildDiscarder(logRotator(daysToKeepStr: '5', numToKeepStr: '5'))
         ])
 
@@ -16,19 +15,19 @@ node {
             packerBuild {
                 directory = 'consul'
                 vars = [aws_region: 'us-gov-west-1']
-                packerFile = 'consul-server.json'
+                packerFile = 'consul.json'
             }
 
             stage('Generate Vault Certificates') {
-                dir("private-tls-cert") {
+                dir("vault/private-tls-cert") {
                     sh 'terraform init'
                     sh "terraform apply -auto-approve"
                 }
             }
 
-            //Build Consul AMI
+            //Build Vault AMI
             packerBuild {
-                directory = '.'
+                directory = 'vault'
                 vars = [aws_region: 'us-gov-west-1']
                 packerFile = 'vault.json'
             }
