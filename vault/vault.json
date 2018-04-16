@@ -1,96 +1,80 @@
 {
+  "min_packer_version": "0.12.0",
   "variables": {
-    "aws_access_key": "",
-    "aws_secret_key": "",
     "aws_region": "us-gov-west-1",
+    "vault_module_version": "v0.6.0",
+    "vault_version": "0.10.0",
+    "consul_module_version": "v0.1.0",
+    "consul_version": "1.0.2",
     "ami_version": "{{timestamp}}",
-    "base_ami_version": "*"
+    "ca_public_key_path": "private-tls-cert/cert/ca.crt.pem",
+    "tls_public_key_path": "private-tls-cert/cert/vault.crt.pem",
+    "tls_private_key_path": "private-tls-cert/cert/vault.key.pem"
   },
-  "builders": [
-    {
-      "type": "amazon-ebs",
-      "access_key": "{{user `aws_access_key`}}",
-      "secret_key": "{{user `aws_secret_key`}}",
-      "region": "{{user `aws_region`}}",
-      "source_ami_filter": {
-        "filters": {
-          "name": "ascent-base-{{user `base_ami_version`}}"
-        },
-        "most_recent": true
+  "builders": [{
+    "ami_name": "vault-{{user `ami_version`}}",
+    "ami_description": "An Amazon Linux AMI that has Vault and Consul installed.",
+    "instance_type": "t2.micro",
+    "name": "amazon-linux-ami",
+    "region": "{{user `aws_region`}}",
+    "vpc_id": "{{user `vpc_id`}}",
+    "subnet_id": "{{user `subnet_id`}}",
+    "associate_public_ip_address": true,
+    "type": "amazon-ebs",
+    "source_ami_filter": {
+      "filters": {
+        "virtualization-type": "hvm",
+        "architecture": "x86_64",
+        "name": "*amzn-ami-hvm-*",
+        "block-device-mapping.volume-type": "gp2",
+        "root-device-type": "ebs"
       },
-      "instance_type": "t2.micro",
-      "ssh_username": "ec2-user",
-      "ssh_pty": true,
-      "ami_name": "ascent-vault-{{user `ami_version`}}",
-      "launch_block_device_mappings": [
-        {
-          "device_name": "/dev/sda1",
-          "volume_size": 10,
-          "volume_type": "gp2",
-          "delete_on_termination": true
-        }
-      ],
-      "tags": {
-        "name": "ascent-vault",
-        "Vault Version": "0.9.1",
-        "Consul Version": "1.0.3"
-      },
-      "snapshot_tags": 
-      {
-        "name": "ascent-vault"
-      }
-    }
-  ],
-  "provisioners": [
-    {
+      "owners": ["amazon"],
+      "most_recent": true
+    },
+    "ssh_username": "ec2-user"
+  }],
+  "provisioners": [{
       "type": "shell",
       "inline": [
-          "sudo yum -y update"
-      ]
-    },
-    {
-      "type": "file",
-      "source": "vault.hcl",
-      "destination": "~/vault.hcl"
-    },
-    {
-      "type": "file",
-      "source": "vault.service",
-      "destination": "~/vault.service"
-    },
-    {
-      "type": "file",
-      "source": "private-tls-cert/cert/vault.crt.pem",
-      "destination": "~/server.pem"
-    },
-    {
-      "type": "file",
-      "source": "private-tls-cert/cert/vault.key.pem",
-      "destination": "~/server.key"
-    },
-    {
-      "type": "file",
-      "source": "vault-redirectaddr.sh",
-      "destination": "~/vault-redirectaddr.sh"
-    },
-    {
-      "type": "file",
-      "source": "consul/consul.service",
-      "destination": "~/consul.service"
-    },
-    {
-      "type": "file",
-      "source": "consul/consul-client-config.json",
-      "destination": "~/consul-config.json"
-    },
-    {
+          "sudo yum install -y git"
+      ],
+      "only": ["amazon-linux-ami"]
+  },{
       "type": "shell",
-      "scripts": [
-        "prereqs.sh",
-        "install-vault.sh",
-        "consul/install-consul.sh",
-        "consul/configure-service.sh"
-      ]
-    }
-  ]
+      "inline": [
+      "git clone --branch {{user `vault_module_version`}} https://github.com/hashicorp/terraform-aws-vault.git /tmp/terraform-aws-vault",
+      "/tmp/terraform-aws-vault/modules/install-vault/install-vault --version {{user `vault_version`}}"
+      ],
+      "pause_before": "30s"
+  },{
+    "type": "file",
+    "source": "{{user `ca_public_key_path`}}",
+    "destination": "/tmp/ca.crt.pem"
+  },{
+    "type": "file",
+    "source": "{{user `tls_public_key_path`}}",
+    "destination": "/tmp/vault.crt.pem"
+  },{
+    "type": "file",
+    "source": "{{user `tls_private_key_path`}}",
+    "destination": "/tmp/vault.key.pem"
+  },{
+    "type": "shell",
+    "inline": [
+      "sudo mv /tmp/ca.crt.pem /opt/vault/tls/",
+      "sudo mv /tmp/vault.crt.pem /opt/vault/tls/",
+      "sudo mv /tmp/vault.key.pem /opt/vault/tls/",
+      "sudo chown vault:vault /opt/vault/tls/*",
+      "sudo chmod 600 /opt/vault/tls/*",
+      "sudo /tmp/terraform-aws-vault/modules/update-certificate-store/update-certificate-store --cert-file-path /opt/vault/tls/ca.crt.pem"
+    ]
+  },{
+    "type": "shell",
+    "inline": [
+      "git clone --branch {{user `consul_module_version`}} https://github.com/hashicorp/terraform-aws-consul.git /tmp/terraform-aws-consul",
+      "/tmp/terraform-aws-consul/modules/install-consul/install-consul --version {{user `consul_version`}}",
+      "/tmp/terraform-aws-consul/modules/install-dnsmasq/install-dnsmasq"
+    ]
+  }]
 }
