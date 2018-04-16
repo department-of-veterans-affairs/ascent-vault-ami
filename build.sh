@@ -24,10 +24,10 @@ cd $BASE_DIR/consul
 packer build -var-file $VAR_FILE consul-server.json
 
 # Build the Vault Certificates
-cd $BASE_DIR/private-tls-cert
+cd $BASE_DIR/vault/private-tls-cert
 terraform apply
 
-cd $BASE_DIR
+cd $BASE_DIR/vault
 # Build Vault Server AMI
 packer build -var-file $VAR_FILE vault.json
 

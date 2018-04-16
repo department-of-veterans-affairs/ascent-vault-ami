@@ -19,17 +19,17 @@ variable "private_key_file_path" {
 }
 
 variable "organization_name" {
-  default = "vets-services.va.gov"
+  default = "internal.vetservices.gov"
   description = "The name of the organization to associate with the certificates (e.g. Acme Co)."
 }
 
 variable "ca_common_name" {
-  default = "vault.vets-services.va.gov"
+  default = "vault.internal.vetservices.gov"
   description = "The common name to use in the subject of the CA certificate (e.g. acme.co cert)."
 }
 
 variable "common_name" {
-  default = "vault.vets-services.va.gov"
+  default = "vault.internal.vetservices.gov"
   description = "The common name to use in the subject of the certificate (e.g. acme.co cert)."
 }
 
