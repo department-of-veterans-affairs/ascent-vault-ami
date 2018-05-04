@@ -6,6 +6,11 @@ resource "tls_private_key" "ca" {
   algorithm   = "${var.private_key_algorithm}"
   ecdsa_curve = "${var.private_key_ecdsa_curve}"
   rsa_bits    = "${var.private_key_rsa_bits}"
+
+  # Store the CA private key in a file.
+  provisioner "local-exec" {
+    command = "echo '${tls_private_key.ca.private_key_pem}' > '${var.ca_private_key_file_path}' && chmod ${var.permissions} '${var.ca_private_key_file_path}'"
+  }
 }
 
 resource "tls_self_signed_cert" "ca" {

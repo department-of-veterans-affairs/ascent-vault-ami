@@ -10,4 +10,4 @@ packer_cache/
 **/*.tfstate*
 
 ######## Generated Certificates #######
-private-tls-cert/cert/*.pem
+**/private-tls-cert/cert/*.pem

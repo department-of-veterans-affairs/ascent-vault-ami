@@ -4,10 +4,11 @@
     "aws_region": "us-gov-west-1",
     "vault_module_version": "v0.6.0",
     "vault_version": "0.10.0",
-    "consul_module_version": "v0.1.0",
-    "consul_version": "1.0.2",
+    "consul_module_version": "v0.3.3",
+    "consul_version": "1.0.7",
     "ami_version": "{{timestamp}}",
     "ca_public_key_path": "private-tls-cert/cert/ca.crt.pem",
+    "ca_private_key_path": "private-tls-cert/cert/ca.key.pem",
     "tls_public_key_path": "private-tls-cert/cert/vault.crt.pem",
     "tls_private_key_path": "private-tls-cert/cert/vault.key.pem"
   },
@@ -53,6 +54,10 @@
     "destination": "/tmp/ca.crt.pem"
   },{
     "type": "file",
+    "source": "{{user `ca_private_key_path`}}",
+    "destination": "/tmp/ca.key.pem"
+  },{
+    "type": "file",
     "source": "{{user `tls_public_key_path`}}",
     "destination": "/tmp/vault.crt.pem"
   },{
@@ -63,6 +68,7 @@
     "type": "shell",
     "inline": [
       "sudo mv /tmp/ca.crt.pem /opt/vault/tls/",
+      "sudo mv /tmp/ca.key.pem /opt/vault/tls/",
       "sudo mv /tmp/vault.crt.pem /opt/vault/tls/",
       "sudo mv /tmp/vault.key.pem /opt/vault/tls/",
       "sudo chown vault:vault /opt/vault/tls/*",

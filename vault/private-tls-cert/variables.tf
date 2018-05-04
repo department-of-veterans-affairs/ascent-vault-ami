@@ -8,6 +8,11 @@ variable "ca_public_key_file_path" {
   description = "Write the PEM-encoded CA certificate public key to this path (e.g. /etc/tls/ca.crt.pem)."
 }
 
+variable "ca_private_key_file_path" {
+  default = "cert/ca.key.pem"
+  description = "Write the PEM-encoded CA certificate private key to this path (e.g. /etc/tls/ca.key.pem)."
+}
+
 variable "public_key_file_path" {
   default = "cert/vault.crt.pem"
   description = "Write the PEM-encoded certificate public key to this path (e.g. /etc/tls/vault.crt.pem)."
