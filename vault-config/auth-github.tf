@@ -31,7 +31,7 @@ resource "vault_generic_secret" "github_devops" {
 
   data_json = <<EOT
 {
-  "key": "ascent-devops"
+  "key": "ascent-devops",
   "value": "devops"
 }
 EOT
