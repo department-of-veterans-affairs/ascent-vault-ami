@@ -106,7 +106,7 @@ resource "vault_generic_secret" "role_ascent_platform" {
   "path_suffix": "",
   "period": 0,
   "renewable": true,
-  "role_name": "ascent-platform",
+  "name": "ascent-platform",
   "allowed_policies": ["ascent-app","ascent-config","ascent-dashboard","ascent-zipkin","ascent-gateway"]
 }
 EOT
@@ -123,7 +123,7 @@ resource "vault_generic_secret" "role_ascent_demo" {
   "path_suffix": "",
   "period": 0,
   "renewable": true,
-  "role_name": "ascent-demo",
+  "name": "ascent-demo",
   "allowed_policies": ["ascent-app","ascent-demo"]
 }
 EOT
@@ -140,7 +140,7 @@ resource "vault_generic_secret" "role_refdata" {
   "path_suffix": "",
   "period": 0,
   "renewable": true,
-  "role_name": "refdata",
+  "name": "refdata",
   "allowed_policies": ["ascent-app","refdata"]
 }
 EOT
@@ -157,7 +157,7 @@ resource "vault_generic_secret" "role_intenttofile" {
   "path_suffix": "",
   "period": 0,
   "renewable": true,
-  "role_name": "intenttofile",
+  "name": "intenttofile",
   "allowed_policies": ["ascent-app","intenttofile"]
 }
 EOT
@@ -174,7 +174,7 @@ resource "vault_generic_secret" "role_redis" {
   "path_suffix": "",
   "period": 0,
   "renewable": true,
-  "role_name": "redis",
+  "name": "redis",
   "allowed_policies": ["redis"]
 }
 EOT
@@ -191,7 +191,7 @@ resource "vault_generic_secret" "role_elk" {
   "path_suffix": "",
   "period": 0,
   "renewable": true,
-  "role_name": "elk",
+  "name": "elk",
   "allowed_policies": ["elasticsearch","kibana"]
 }
 EOT
@@ -208,7 +208,7 @@ resource "vault_generic_secret" "role_ci" {
   "path_suffix": "",
   "period": 0,
   "renewable": true,
-  "role_name": "ci",
+  "name": "ci",
   "allowed_policies": ["jenkins-ci","sonar","nexus"]
 }
 EOT
