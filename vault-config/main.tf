@@ -99,7 +99,13 @@ resource "vault_generic_secret" "role_ascent_platform" {
   path = "auth/token/roles/ascent-platform"
 
   data_json = <<EOT
-{
+{ 
+  "disallowed_policies": [],
+  "explicit_max_ttl": 0,
+  "orphan": false,
+  "path_suffix": "",
+  "period": 0,
+  "renewable": true,
   "role_name": "ascent-platform",
   "allowed_policies": "ascent-app,ascent-config,ascent-dashboard,ascent-zipkin,ascent-gateway"
 }
@@ -111,6 +117,12 @@ resource "vault_generic_secret" "role_ascent_demo" {
 
   data_json = <<EOT
 {
+  "disallowed_policies": [],
+  "explicit_max_ttl": 0,
+  "orphan": false,
+  "path_suffix": "",
+  "period": 0,
+  "renewable": true,
   "role_name": "ascent-demo",
   "allowed_policies": "ascent-app,ascent-demo"
 }
@@ -122,6 +134,12 @@ resource "vault_generic_secret" "role_refdata" {
 
   data_json = <<EOT
 {
+  "disallowed_policies": [],
+  "explicit_max_ttl": 0,
+  "orphan": false,
+  "path_suffix": "",
+  "period": 0,
+  "renewable": true,
   "role_name": "refdata",
   "allowed_policies": "ascent-app,refdata"
 }
@@ -133,6 +151,12 @@ resource "vault_generic_secret" "role_intenttofile" {
 
   data_json = <<EOT
 {
+  "disallowed_policies": [],
+  "explicit_max_ttl": 0,
+  "orphan": false,
+  "path_suffix": "",
+  "period": 0,
+  "renewable": true,
   "role_name": "intenttofile",
   "allowed_policies": "ascent-app,intenttofile"
 }
@@ -144,6 +168,12 @@ resource "vault_generic_secret" "role_redis" {
 
   data_json = <<EOT
 {
+  "disallowed_policies": [],
+  "explicit_max_ttl": 0,
+  "orphan": false,
+  "path_suffix": "",
+  "period": 0,
+  "renewable": true,
   "role_name": "redis",
   "allowed_policies": "redis"
 }
@@ -155,6 +185,12 @@ resource "vault_generic_secret" "role_elk" {
 
   data_json = <<EOT
 {
+  "disallowed_policies": [],
+  "explicit_max_ttl": 0,
+  "orphan": false,
+  "path_suffix": "",
+  "period": 0,
+  "renewable": true,
   "role_name": "elk",
   "allowed_policies": "elasticsearch,kibana"
 }
@@ -166,6 +202,12 @@ resource "vault_generic_secret" "role_ci" {
 
   data_json = <<EOT
 {
+  "disallowed_policies": [],
+  "explicit_max_ttl": 0,
+  "orphan": false,
+  "path_suffix": "",
+  "period": 0,
+  "renewable": true,
   "role_name": "ci",
   "allowed_policies": "jenkins-ci,sonar,nexus"
 }
