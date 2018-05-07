@@ -14,6 +14,9 @@ resource "vault_generic_secret" "github_dsva" {
 
   data_json = <<EOT
 {
+  "base_url": "",
+  "max_ttl": 0,
+  "ttl": 0,
   "organization": "department-of-veterans-affairs"
 }
 EOT
@@ -28,6 +31,7 @@ resource "vault_generic_secret" "github_devops" {
 
   data_json = <<EOT
 {
+  "key": "ascent-devops"
   "value": "devops"
 }
 EOT
