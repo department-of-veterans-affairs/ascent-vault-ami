@@ -107,7 +107,7 @@ resource "vault_generic_secret" "role_ascent_platform" {
   "period": 0,
   "renewable": true,
   "name": "ascent-platform",
-  "allowed_policies": ["ascent-app","ascent-config","ascent-dashboard","ascent-zipkin","ascent-gateway"]
+  "allowed_policies": ["ascent-app","ascent-config","ascent-dashboard","ascent-gateway","ascent-zipkin"]
 }
 EOT
 }
@@ -209,7 +209,7 @@ resource "vault_generic_secret" "role_ci" {
   "period": 0,
   "renewable": true,
   "name": "ci",
-  "allowed_policies": ["jenkins-ci","sonar","nexus"]
+  "allowed_policies": ["jenkins-ci","nexus","sonar"]
 }
 EOT
 }
