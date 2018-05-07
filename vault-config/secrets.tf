@@ -20,7 +20,7 @@ resource "vault_generic_secret" "elasticsearch_admin" {
   data_json = <<EOT
 {
   "username": "elastic",
-  "password": "${random_string.password.result}"
+  "password": "${random_string.es_admin_password.result}"
 }
 EOT
 }

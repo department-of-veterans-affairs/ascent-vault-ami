@@ -128,17 +128,6 @@ resource "vault_generic_secret" "role_refdata" {
 EOT
 }
 
-resource "vault_generic_secret" "role_refdata" {
-  path = "auth/token/roles/refdata"
-
-  data_json = <<EOT
-{
-  "role_name": "refdata",
-  "allowed_policies": "ascent-app,refdata"
-}
-EOT
-}
-
 resource "vault_generic_secret" "role_intenttofile" {
   path = "auth/token/roles/intenttofile"
 
