@@ -61,7 +61,7 @@ resource "vault_generic_secret" "cert_role" {
   "province": [],
   "require_cn": true,
   "server_flag": true,
-  street_address": [],
+  "street_address": [],
   "ttl": "0s",
   "use_csr_common_name": true,
   "use_csr_sans": true,
