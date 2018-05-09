@@ -23,7 +23,7 @@ resource "vault_generic_secret" "ca" {
 
   data_json = <<EOT
 {
-  "pem_bundle": "${format("%s\n%s",file("${var.ca_cert_file}"), file("${var.ca_private_key_file}"))}"
+  "pem_bundle": "${format("%s%s",file("${var.ca_cert_file}"), file("${var.ca_private_key_file}"))}"
 }
 EOT
 }
