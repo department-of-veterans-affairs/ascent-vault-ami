@@ -19,11 +19,24 @@ resource "vault_mount" "pki" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "vault_generic_secret" "ca" {
-  path = "pki/config/ca"
+  path = "pki/root/generate/internal"
 
   data_json = <<EOT
 {
-  "pem_bundle": "${format("%s%s",file("${var.ca_cert_file}"), file("${var.ca_private_key_file}"))}"
+  "common_name": "${var.ca_common_name}"
+  "ttl": "8760h"
+}
+EOT
+}
+
+resource "vault_generic_secret" "cert_role" {
+  path = "pki/roles/vetservices"
+
+  data_json = <<EOT
+{
+  "allowed_domains": "${var.ca_common_name}",
+  "allow_subdomains": true,
+  "max_ttl": "8760h"
 }
 EOT
 }

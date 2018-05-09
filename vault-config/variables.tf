@@ -19,13 +19,7 @@ variable "bgs_password" {
   description = "Password to be used by our micro-services to authenticate with BGS services. To be supplied by BGS."
 }
 
-variable "ca_cert_file" {
-  description = "Path to Vault CA certificate" 
-}
 
-variable "ca_private_key_file" {
-  description = "Path to Vault CA private key" 
-}
 
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS
@@ -35,4 +29,9 @@ variable "ca_private_key_file" {
 variable "bgs_username" {
   description = "Username to be used by our micro-services to authenticate with BGS services. To be supplied by BGS."
   default = ""
+}
+
+variable "ca_common_name" {
+  description = "Common name used for the generated CA certificate"
+  default = "internal.vetservices.gov"
 }
