@@ -67,7 +67,7 @@ resource "vault_generic_secret" "cert_role" {
   "use_csr_sans": true,
   "allowed_domains": "${var.ca_common_name}",
   "allow_subdomains": true,
-  "max_ttl": "8760h"
+  "max_ttl": "8760h0m0s"
 }
 EOT
 }
