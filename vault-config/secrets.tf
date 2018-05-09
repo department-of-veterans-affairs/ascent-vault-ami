@@ -212,7 +212,7 @@ resource "vault_generic_secret" "application" {
   "ascent.security.password": "${random_string.spring_boot_admin_password.result}",
   "spring.redis.password": "${random_string.spring_boot_admin_password.result}",
   "spring.rabbitmq.username": "admin",
-  "spring.rabbitmq.password": "${random_string.rabbitmq_password.result}"
+  "spring.rabbitmq.password": "${random_string.rabbitmq_password.result}",
   "bgs.username": "${var.bgs_username}",
   "bgs.password": "${var.bgs_password}"
 }
