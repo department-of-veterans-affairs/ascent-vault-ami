@@ -19,6 +19,14 @@ variable "bgs_password" {
   description = "Password to be used by our micro-services to authenticate with BGS services. To be supplied by BGS."
 }
 
+variable "ca_cert_file" {
+  description = "Path to Vault CA certificate" 
+}
+
+variable "ca_private_key_file" {
+  description = "Path to Vault CA private key" 
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS
 # These parameters have reasonable defaults, but can be overriden to customize this module.
