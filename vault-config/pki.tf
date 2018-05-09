@@ -23,7 +23,7 @@ resource "vault_generic_secret" "ca" {
 
   data_json = <<EOT
 {
-  "common_name": "${var.ca_common_name}"
+  "common_name": "${var.ca_common_name}",
   "ttl": "8760h"
 }
 EOT
