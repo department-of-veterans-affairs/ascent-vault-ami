@@ -12,7 +12,6 @@ resource "vault_mount" "pki" {
     type = "pki"
     default_lease_ttl_seconds = 315360000
     max_lease_ttl_seconds     = 315360000
-    disable_read = "true"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
