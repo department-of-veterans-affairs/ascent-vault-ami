@@ -20,6 +20,7 @@ resource "vault_mount" "pki" {
 
 resource "vault_generic_secret" "ca" {
   path = "pki/root/generate/internal"
+  disable_read = "true"
 
   data_json = <<EOT
 {
