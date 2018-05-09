@@ -41,7 +41,7 @@ resource "vault_generic_secret" "cert_role" {
   "allow_ip_sans": true,
   "allow_localhost": true,
   "allow_token_displayname": false,
-  "allowed_other_sans": "",
+  "allowed_other_sans": null,
   "basic_constraints_valid_for_non_ca": false,
   "client_flag": true,
   "code_signing_flag": false,
