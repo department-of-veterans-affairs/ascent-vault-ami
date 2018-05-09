@@ -50,7 +50,7 @@ resource "vault_generic_secret" "cert_role" {
   "enforce_hostnames": true,
   "generate_lease": false,
   "key_bits": 2048,
-  "key_type": rsa,
+  "key_type": "rsa",
   "key_usage": ["DigitalSignature", "KeyAgreement", "KeyEncipherment"],
   "locality": [],
   "no_store": false,
