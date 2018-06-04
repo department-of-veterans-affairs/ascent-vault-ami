@@ -19,6 +19,10 @@ variable "bgs_password" {
   description = "Password to be used by our micro-services to authenticate with BGS services. To be supplied by BGS."
 }
 
+variable "vbms_private_key_file" {
+  description = "Path to private key for VBMS client certificate. Should be in PEM format"
+}
+
 
 
 # ---------------------------------------------------------------------------------------------------------------------
