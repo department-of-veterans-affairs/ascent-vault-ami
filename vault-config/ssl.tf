@@ -86,7 +86,6 @@ EOT
 
 resource "vault_generic_secret" "doc_services_vbms_client" {
   path = "secret/ssl/client/docservices/vbms"
-  disable_read = "true"
 
   data_json = <<EOT
 {
@@ -110,9 +109,8 @@ Q2xjlCRexyjAGH/z+WK/vdW6kAjCcXAlWeddvB+qiYcWOSZAorpFZzNKvaeQlCXO
 RLGMY8PzUNM3sdVXEFxOsZ3a5R562OD1GZbz975AvkHf4IR6Oq4KmUVgvogwA0B7
 oLe6HsqEztBfdlKTvQEbLYqwlgJ8M1L1fzF0YiW81OTpjPoj4qEhEfgGlGnMwq2B
 ijW+Igy86PySB9Ec8rjPghDzKW/n40ftkQoNLoE=
------END CERTIFICATE-----")}
+-----END CERTIFICATE-----")},
+"private_key": ${jsonencode(file(var.vbms_private_key_file))}
 }
 EOT
 }
-
-#"private_key": "${jsonencode(file(var.vbms_private_key_file))}"
