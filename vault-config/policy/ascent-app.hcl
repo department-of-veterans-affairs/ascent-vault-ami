@@ -36,3 +36,12 @@ path "secret/ascent-config" {
 path "secret/ascent-config,*" {
     capabilities = ["read", "list"]
 }
+
+# Give application access to the set of trusted SSL certificates
+path "secret/ssl/trusted" {
+    capabilities = ["read", "list"]
+}
+
+path "secret/ssl/trusted/*" {
+    capabilities = ["read", "list"]
+}
