@@ -25,9 +25,11 @@ resource "vault_generic_secret" "ca" {
   data_json = <<EOT
 {
   "common_name": "${var.ca_common_name}",
-  "ttl": "8760h"
+  "ttl": "43800h"
 }
 EOT
+
+  depends_on = ["vault_mount.pki"]
 }
 
 resource "vault_generic_secret" "cert_role" {
@@ -70,4 +72,5 @@ resource "vault_generic_secret" "cert_role" {
   "max_ttl": "8760h0m0s"
 }
 EOT
+  depends_on = ["vault_mount.pki"]
 }
