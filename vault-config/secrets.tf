@@ -285,7 +285,7 @@ resource "vault_generic_secret" "sonar_github" {
 
   data_json = <<EOT
 {
-  "sonar.token": "${var.sonar_git_access_token}"
+  "token": "${var.sonar_git_access_token}"
 }
 EOT
 }
