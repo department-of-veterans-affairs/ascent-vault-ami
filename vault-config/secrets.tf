@@ -56,7 +56,7 @@ EOT
 
 resource "random_string" "discovery_password" {
   length = 30
-  special = true
+  special = false
   upper = true
   lower = true
   number = true
@@ -80,7 +80,7 @@ EOT
 
 resource "random_string" "config_password" {
   length = 30
-  special = true
+  special = false
   upper = true
   lower = true
   number = true
@@ -180,7 +180,7 @@ EOT
 
 resource "random_string" "spring_boot_admin_password" {
   length = 30
-  special = true
+  special = false
   upper = true
   lower = true
   number = true
@@ -196,7 +196,7 @@ resource "random_string" "redis_password" {
 
 resource "random_string" "rabbitmq_password" {
   length = 30
-  special = true
+  special = false
   upper = true
   lower = true
   number = true
@@ -209,8 +209,8 @@ resource "vault_generic_secret" "application" {
 {
   "ascent.security.jwt.secret": "${var.jwt_secret_token}",
   "ascent.security.username": "admin",
-  "ascent.security.password": "${random_string.spring_boot_admin_password.result}",
-  "spring.redis.password": "${random_string.spring_boot_admin_password.result}",
+  "ascent.security.password": "default",
+  "spring.redis.password": "${random_string.redis_password.result}",
   "spring.rabbitmq.username": "admin",
   "spring.rabbitmq.password": "${random_string.rabbitmq_password.result}",
   "bgs.username": "${var.bgs_username}",
