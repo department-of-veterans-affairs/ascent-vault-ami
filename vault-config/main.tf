@@ -61,7 +61,7 @@ resource "vault_policy" "jenkins-ci" {
 }
 
 
-resourc "vault_policy" "nexus" {
+resource "vault_policy" "nexus" {
     name = "nexus"
     policy = "${file("${path.module}/policy/nexus.hcl")}"
 }
