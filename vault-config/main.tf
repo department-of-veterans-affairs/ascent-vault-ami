@@ -49,10 +49,6 @@ resource "vault_policy" "ascent-zipkin" {
     policy = "${file("${path.module}/policy/ascent-zipkin.hcl")}"
 }
 
-resource "vault_policy" "elasticsearch" {
-    name = "elasticsearch"
-    policy = "${file("${path.module}/policy/elasticsearch.hcl")}"
-}
 
 resource "vault_policy" "intenttofile" {
     name = "intenttofile"
@@ -64,12 +60,8 @@ resource "vault_policy" "jenkins-ci" {
     policy = "${file("${path.module}/policy/jenkins-ci.hcl")}"
 }
 
-resource "vault_policy" "kibana" {
-    name = "kibana"
-    policy = "${file("${path.module}/policy/kibana.hcl")}"
-}
 
-resource "vault_policy" "nexus" {
+resourc "vault_policy" "nexus" {
     name = "nexus"
     policy = "${file("${path.module}/policy/nexus.hcl")}"
 }
@@ -180,22 +172,6 @@ resource "vault_generic_secret" "role_redis" {
 EOT
 }
 
-resource "vault_generic_secret" "role_elk" {
-  path = "auth/token/roles/elk"
-
-  data_json = <<EOT
-{
-  "disallowed_policies": [],
-  "explicit_max_ttl": 0,
-  "orphan": false,
-  "path_suffix": "",
-  "period": 0,
-  "renewable": true,
-  "name": "elk",
-  "allowed_policies": ["elasticsearch","kibana"]
-}
-EOT
-}
 
 resource "vault_generic_secret" "role_ci" {
   path = "auth/token/roles/ci"
