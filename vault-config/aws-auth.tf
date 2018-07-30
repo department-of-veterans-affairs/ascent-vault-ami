@@ -23,6 +23,6 @@ resource "vault_aws_auth_backend_role" "proxy" {
 
 
 resource "vault_aws_auth_backend_login" "proxy" {
-  backend = "${vault_auth_backend.proxy.path}"
+  backend = "${vault_auth_backend.aws.path}"
   role    = "${vault_aws_auth_backend_role.proxy.role}"
 }
