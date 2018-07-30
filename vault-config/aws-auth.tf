@@ -7,7 +7,7 @@ resource "vault_aws_auth_backend_role" "example" {
   role                           = "generate-certs"
   auth_type                      = "ec2"
   bound_iam_role_arn             = "${var.role_arn}"
-  bound_iam_instance_profile_arn = "${var.profile_arn}"
+  #bound_iam_instance_profile_arn = "${var.profile_arn}"
   inferred_entity_type           = "ec2_instance"
   ttl                            = 60
   max_ttl                        = 120
