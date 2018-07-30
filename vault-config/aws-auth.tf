@@ -2,7 +2,12 @@ resource "vault_auth_backend" "aws" {
   type = "aws"
 }
 
-resource "vault_aws_auth_backend_role" "example" {
+
+resource "vault_aws_auth_backend_client" "proxy" {
+  backend  = "${vault_auth_backend.aws.path}"
+}
+
+resource "vault_aws_auth_backend_role" "proxy" {
   backend                        = "${vault_auth_backend.aws.path}"
   role                           = "generate-certs"
   auth_type                      = "ec2"
@@ -12,4 +17,12 @@ resource "vault_aws_auth_backend_role" "example" {
   ttl                            = 60
   max_ttl                        = 120
   policies                       = ["ssl_certificates"]
+
+  depends_on                     = ["vault_aws_auth_backend_client.proxy"]
+}
+
+
+resource "vault_aws_auth_backend_login" "proxy" {
+  backend = "${vault_auth_backend.proxy.path}"
+  role    = "${vault_aws_auth_backend_role.proxy.role}"
 }
