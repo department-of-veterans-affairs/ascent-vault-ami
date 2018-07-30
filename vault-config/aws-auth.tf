@@ -5,6 +5,8 @@ resource "vault_auth_backend" "aws" {
 
 resource "vault_aws_auth_backend_client" "proxy" {
   backend  = "${vault_auth_backend.aws.path}"
+  access_key = "${var.access_key}"
+  secret_key = "${var.secret_key}"
 }
 
 resource "vault_aws_auth_backend_role" "proxy" {
