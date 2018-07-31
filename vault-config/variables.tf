@@ -31,13 +31,6 @@ variable "profile_arn" {
   description = "The ARN of the profile that the EC2 Instance will assume while making requests to vault"
 }
 
-variable "access_key" {
-  description = "The access key for the AWS account to mount to the vault backend"
-}
-
-variable "secret_key" {
-  description = "The secret key for the AWS account to mount to the vault backend"
-}
 
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS

@@ -14,7 +14,6 @@ resource "vault_aws_auth_backend_role" "proxy" {
   role                           = "generate-certs"
   auth_type                      = "ec2"
   bound_iam_role_arn             = "${var.role_arn}"
-  #bound_iam_instance_profile_arn = "${var.profile_arn}"
   inferred_entity_type           = "ec2_instance"
   ttl                            = 60
   max_ttl                        = 120
@@ -23,8 +22,3 @@ resource "vault_aws_auth_backend_role" "proxy" {
   depends_on                     = ["vault_aws_auth_backend_client.proxy"]
 }
 
-
-resource "vault_aws_auth_backend_login" "proxy" {
-  backend = "${vault_auth_backend.aws.path}"
-  role    = "${vault_aws_auth_backend_role.proxy.role}"
-}
