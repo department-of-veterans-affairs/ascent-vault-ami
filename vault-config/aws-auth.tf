@@ -15,8 +15,7 @@ resource "vault_aws_auth_backend_role" "proxy" {
   inferred_entity_type           = "ec2_instance"
   ttl                            = 60
   max_ttl                        = 120
-  policies                       = ["ssl_certificates"]
+  policies                       = ["${vault_policy.ssl_certificates.name}"]
 
   depends_on                     = ["vault_aws_auth_backend_client.proxy"]
 }
-
