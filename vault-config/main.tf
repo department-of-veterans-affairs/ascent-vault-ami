@@ -81,6 +81,11 @@ resource "vault_policy" "sonar" {
     policy = "${file("${path.module}/policy/sonar.hcl")}"
 }
 
+resource "vault_policy" "ssl_certificates" {
+    name = "ssl_certificates"
+    policy = "${file("${path.module}/policy/ssl_certificates.hcl")}"
+}
+
 ###############################################################################
 #
 # Vault Roles
@@ -91,7 +96,7 @@ resource "vault_generic_secret" "role_ascent_platform" {
   path = "auth/token/roles/ascent-platform"
 
   data_json = <<EOT
-{ 
+{
   "disallowed_policies": [],
   "explicit_max_ttl": 0,
   "orphan": false,
