@@ -9,7 +9,7 @@ resource "vault_aws_auth_backend_client" "proxy" {
 
 resource "vault_aws_auth_backend_role" "proxy" {
   backend                        = "${vault_auth_backend.aws.path}"
-  role                           = "generate-certs"
+  role                           = "vetservices"
   auth_type                      = "ec2"
   bound_iam_role_arn             = "${var.role_arn}"
   inferred_entity_type           = "ec2_instance"
