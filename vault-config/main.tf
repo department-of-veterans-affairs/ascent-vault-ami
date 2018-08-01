@@ -194,3 +194,20 @@ resource "vault_generic_secret" "role_ci" {
 }
 EOT
 }
+
+resource "vault_generic_secret" "role_grafana" {
+  path = "auth/token/roles/grafana"
+
+  data_json = <<EOT
+{
+  "disallowed_policies": [],
+  "explicit_max_ttl": 0,
+  "orphan": false,
+  "path_suffix": "",
+  "period": 0,
+  "renewable": true,
+  "name": "grafana",
+  "allowed_policies": ["grafana"]
+}
+EOT
+}
