@@ -331,10 +331,10 @@ resource "random_string" "database_password" {
 
 resource "vault_generic_secret" "grafana" {
   path = "secret/grafana"
-  data.json = <<EOT
-  {
-    "database_username": "grafana"
-    "database_password": "${random_string.database_password.result}"
-  }
+  data_json = <<EOT
+{
+  "database_username": "grafana"
+  "database_password": "${random_string.database_password.result}"
+}
 EOT
 }
