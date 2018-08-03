@@ -81,6 +81,11 @@ resource "vault_policy" "sonar" {
     policy = "${file("${path.module}/policy/sonar.hcl")}"
 }
 
+resource "vault_policy" "grafana" {
+    name = "grafana"
+    policy = "${file("${path.module}/policy/grafana.hcl")}"
+}
+
 ###############################################################################
 #
 # Vault Roles
@@ -91,7 +96,7 @@ resource "vault_generic_secret" "role_ascent_platform" {
   path = "auth/token/roles/ascent-platform"
 
   data_json = <<EOT
-{ 
+{
   "disallowed_policies": [],
   "explicit_max_ttl": 0,
   "orphan": false,
@@ -185,7 +190,24 @@ resource "vault_generic_secret" "role_ci" {
   "period": 0,
   "renewable": true,
   "name": "ci",
-  "allowed_policies": ["jenkins-ci","nexus","sonar"]
+  "allowed_policies": ["jenkins-ci","nexus","sonar", "grafana"]
+}
+EOT
+}
+
+resource "vault_generic_secret" "role_grafana" {
+  path = "auth/token/roles/grafana"
+
+  data_json = <<EOT
+{
+  "disallowed_policies": [],
+  "explicit_max_ttl": 0,
+  "orphan": false,
+  "path_suffix": "",
+  "period": 0,
+  "renewable": true,
+  "name": "grafana",
+  "allowed_policies": ["grafana"]
 }
 EOT
 }

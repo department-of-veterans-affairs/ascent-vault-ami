@@ -1,7 +1,7 @@
 ###############################################################################
 #
 # Application Secrets
-# 
+#
 # Load secrets used by our applications. Generate random values for passwords
 # to keep values unqiue in all environments.
 ###############################################################################
@@ -313,5 +313,28 @@ resource "vault_generic_secret" "fortify" {
   "database_username": "fortify",
   "database_password": "${random_string.foritfy_db_password.result}"
 }
+EOT
+}
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+# GRAFANA
+# ---------------------------------------------------------------------------------------------------------------------
+
+resource "random_string" "database_password" {
+  length = 30
+  special = false
+  upper   = true
+  lower   = true
+  number  = true
+}
+
+resource "vault_generic_secret" "grafana" {
+  path = "secret/grafana"
+  data.json = <<EOT
+  {
+    "database_username": "grafana"
+    "database_password": "${random_string.database_password.result}"
+  }
 EOT
 }
