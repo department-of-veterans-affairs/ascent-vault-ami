@@ -5,7 +5,7 @@
     "vault_module_version": "v0.6.0",
     "vault_version": "0.10.3",
     "consul_module_version": "v0.3.3",
-    "consul_version": "1.0.7",
+    "consul_version": "1.2.2",
     "statsd_exporter_version": "0.6.0",
     "prometheus_module_version": "v1.0.1",
     "ami_version": "{{timestamp}}",
