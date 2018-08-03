@@ -81,6 +81,11 @@ resource "vault_policy" "sonar" {
     policy = "${file("${path.module}/policy/sonar.hcl")}"
 }
 
+resource "vault_policy" "ssl_certificates" {
+    name = "ssl_certificates"
+    policy = "${file("${path.module}/policy/ssl_certificates.hcl")}"
+}
+
 resource "vault_policy" "grafana" {
     name = "grafana"
     policy = "${file("${path.module}/policy/grafana.hcl")}"
