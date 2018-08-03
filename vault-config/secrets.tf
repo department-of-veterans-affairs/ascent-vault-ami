@@ -1,53 +1,11 @@
 ###############################################################################
 #
 # Application Secrets
-# 
+#
 # Load secrets used by our applications. Generate random values for passwords
 # to keep values unqiue in all environments.
 ###############################################################################
 
-
-# ---------------------------------------------------------------------------------------------------------------------
-# ELK STACK
-# ---------------------------------------------------------------------------------------------------------------------
-
-resource "random_string" "es_admin_password" {
-  length = 30
-  special = true
-  upper = true
-  lower = true
-  number = true
-}
-
-resource "vault_generic_secret" "elasticsearch_admin" {
-  path = "secret/elasticsearch/admin"
-
-  data_json = <<EOT
-{
-  "username": "elastic",
-  "password": "${random_string.es_admin_password.result}"
-}
-EOT
-}
-
-resource "random_string" "es_kibana_password" {
-  length = 30
-  special = true
-  upper = true
-  lower = true
-  number = true
-}
-
-resource "vault_generic_secret" "elasticsearch_kibana" {
-  path = "secret/elasticsearch/kibana"
-
-  data_json = <<EOT
-{
-  "username": "kibana",
-  "password": "${random_string.es_kibana_password.result}"
-}
-EOT
-}
 
 # ---------------------------------------------------------------------------------------------------------------------
 # DISCOVERY SERVICE
@@ -139,16 +97,6 @@ resource "random_string" "zipkin_password" {
   number = true
 }
 
-resource "vault_generic_secret" "zipkin" {
-  path = "secret/ascent-zipkin"
-
-  data_json = <<EOT
-{
-  "zipkin.storage.elasticsearch.username": "zipkin",
-  "zipkin.storage.elasticsearch.password": "${random_string.zipkin_password.result}"
-}
-EOT
-}
 
 # ---------------------------------------------------------------------------------------------------------------------
 # DASHBOARD SERVICE
@@ -365,5 +313,28 @@ resource "vault_generic_secret" "fortify" {
   "database_username": "fortify",
   "database_password": "${random_string.foritfy_db_password.result}"
 }
+EOT
+}
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+# GRAFANA
+# ---------------------------------------------------------------------------------------------------------------------
+
+resource "random_string" "database_password" {
+  length = 30
+  special = false
+  upper   = true
+  lower   = true
+  number  = true
+}
+
+resource "vault_generic_secret" "grafana" {
+  path = "secret/grafana"
+  data.json = <<EOT
+  {
+    "database_username": "grafana"
+    "database_password": "${random_string.database_password.result}"
+  }
 EOT
 }
