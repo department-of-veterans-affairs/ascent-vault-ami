@@ -195,7 +195,7 @@ resource "vault_generic_secret" "role_ci" {
   "period": 0,
   "renewable": true,
   "name": "ci",
-  "allowed_policies": ["jenkins-ci","nexus","sonar", "grafana"]
+  "allowed_policies": ["grafana","jenkins-ci","nexus","sonar"]
 }
 EOT
 }
