@@ -3,9 +3,11 @@
   "variables": {
     "aws_region": "us-gov-west-1",
     "vault_module_version": "v0.6.0",
-    "vault_version": "0.10.0",
+    "vault_version": "0.10.3",
     "consul_module_version": "v0.3.3",
-    "consul_version": "1.0.7",
+    "consul_version": "1.2.2",
+    "statsd_exporter_version": "0.6.0",
+    "prometheus_module_version": "v1.0.1",
     "ami_version": "{{timestamp}}",
     "ca_public_key_path": "private-tls-cert/cert/ca.crt.pem",
     "ca_private_key_path": "private-tls-cert/cert/ca.key.pem",
@@ -45,7 +47,8 @@
       "type": "shell",
       "inline": [
       "git clone --branch {{user `vault_module_version`}} https://github.com/hashicorp/terraform-aws-vault.git /tmp/terraform-aws-vault",
-      "/tmp/terraform-aws-vault/modules/install-vault/install-vault --version {{user `vault_version`}}"
+      "/tmp/terraform-aws-vault/modules/install-vault/install-vault --version {{user `vault_version`}}",
+      "mkdir -p /tmp/vault-config"
       ],
       "pause_before": "30s"
   },{
@@ -65,6 +68,10 @@
     "source": "{{user `tls_private_key_path`}}",
     "destination": "/tmp/vault.key.pem"
   },{
+    "type": "file",
+    "source": "config/",
+    "destination": "/tmp/vault-config"
+  },{
     "type": "shell",
     "inline": [
       "sudo mv /tmp/ca.crt.pem /opt/vault/tls/",
@@ -73,6 +80,10 @@
       "sudo mv /tmp/vault.key.pem /opt/vault/tls/",
       "sudo chown vault:vault /opt/vault/tls/*",
       "sudo chmod 600 /opt/vault/tls/*",
+      "sudo mv /tmp/vault-config/* /opt/vault/config/",
+      "sudo chown vault:vault /opt/vault/config/*",
+      "sudo chmod 644 /opt/vault/config/*",
+      "rm -rf /tmp/vault-config",
       "sudo /tmp/terraform-aws-vault/modules/update-certificate-store/update-certificate-store --cert-file-path /opt/vault/tls/ca.crt.pem"
     ]
   },{
@@ -81,6 +92,12 @@
       "git clone --branch {{user `consul_module_version`}} https://github.com/hashicorp/terraform-aws-consul.git /tmp/terraform-aws-consul",
       "/tmp/terraform-aws-consul/modules/install-consul/install-consul --version {{user `consul_version`}}",
       "/tmp/terraform-aws-consul/modules/install-dnsmasq/install-dnsmasq"
+    ]
+  },{
+    "type": "shell",
+    "inline": [
+      "git clone --branch {{user `prometheus_module_version`}} https://github.com/department-of-veterans-affairs/ascent-prometheus-ami.git /tmp/ascent-prometheus-ami",
+      "/tmp/ascent-prometheus-ami/modules/statsd-exporter/install-statsd-exporter --version {{user `statsd_exporter_version`}}"
     ]
   }]
 }
