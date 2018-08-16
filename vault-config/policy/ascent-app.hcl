@@ -45,3 +45,8 @@ path "secret/ssl/trusted" {
 path "secret/ssl/trusted/*" {
     capabilities = ["read", "list"]
 }
+
+# Give applications the ability to request certificates for themselves
+path "pki/issue/vetservices" {
+    capabilities = ["create", "update"]
+}

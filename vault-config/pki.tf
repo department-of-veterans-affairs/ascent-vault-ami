@@ -37,7 +37,7 @@ resource "vault_generic_secret" "cert_role" {
 
   data_json = <<EOT
 {
-  "allow_any_name": false,
+  "allow_any_name": true,
   "allow_bare_domains": false,
   "allow_glob_domains": false,
   "allow_ip_sans": true,
