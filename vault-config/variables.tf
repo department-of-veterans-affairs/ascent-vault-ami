@@ -31,12 +31,17 @@ variable "profile_arn" {
   description = "The ARN of the profile that the EC2 Instance will assume while making requests to vault"
 }
 
+<<<<<<< Updated upstream
 variable "ascent_gateway_certificate" {
   description = "Path to the file containing the public certificate for the ascent-gateway application. File should be in PEM format."
 }
 
 variable "ascent_gateway_private_key" {
   description = "Path to the file containing the private key for the ascent-gateway application. File should be in PEM format."
+=======
+variable "docker_role_arn" {
+  description = "The ARN of the profile that the docker EC2 instances will assume while making requests to vault"
+>>>>>>> Stashed changes
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -46,10 +51,10 @@ variable "ascent_gateway_private_key" {
 
 variable "bgs_username" {
   description = "Username to be used by our micro-services to authenticate with BGS services. To be supplied by BGS."
-  default = ""
+  default     = ""
 }
 
 variable "ca_common_name" {
   description = "Common name used for the generated CA certificate"
-  default = "internal.vetservices.gov"
+  default     = "internal.vetservices.gov"
 }
