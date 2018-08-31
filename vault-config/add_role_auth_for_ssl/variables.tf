@@ -1,3 +1,3 @@
-variable "bound_role_arn" {
-  definition = "Defines an IAM role that will bind to the vault role."
+variable "bound_profile_arn" {
+  definition = "Defines an IAM instance profile that will bind to the vault role."
 }
