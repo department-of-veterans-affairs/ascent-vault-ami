@@ -1,10 +1,3 @@
-resource "vault_auth_backend" "aws" {
-  type = "aws"
-}
-
-resource "vault_aws_auth_backend_client" "instance" {
-  backend = "${vault_auth_backend.aws.path}"
-}
 
 resource "vault_aws_auth_backend_role" "instance_backend_role" {
   backend              = "${vault_auth_backend.aws.path}"
@@ -15,6 +8,4 @@ resource "vault_aws_auth_backend_role" "instance_backend_role" {
   ttl                  = 60
   max_ttl              = 120
   policies             = ["ssl_certificates"]
-
-  depends_on = ["vault_aws_auth_backend_client.instance"]
 }
