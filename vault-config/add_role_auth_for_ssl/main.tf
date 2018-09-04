@@ -1,3 +1,6 @@
+resource "vault_auth_backend" "aws" {
+  type = "aws"
+}
 
 resource "vault_aws_auth_backend_role" "instance_backend_role" {
   backend              = "${vault_auth_backend.aws.path}"
