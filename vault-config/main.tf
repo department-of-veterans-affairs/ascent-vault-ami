@@ -68,6 +68,11 @@ resource "vault_policy" "refdata" {
   policy = "${file("${path.module}/policy/refdata.hcl")}"
 }
 
+resource "vault_policy" "sign-csr" {
+  name   = "sign-csr"
+  policy = "${file("${path.module}/policy/sign-csr.hcl")}"
+}
+
 resource "vault_policy" "sonar" {
   name   = "sonar"
   policy = "${file("${path.module}/policy/sonar.hcl")}"
@@ -76,11 +81,6 @@ resource "vault_policy" "sonar" {
 resource "vault_policy" "ssl_certificates" {
   name   = "ssl_certificates"
   policy = "${file("${path.module}/policy/ssl_certificates.hcl")}"
-}
-
-resource "vault_policy" "sign-csr" {
-  name   = "sign-csr"
-  policy = "${file("${path.module}/policy/sign-csr.hcl")}"
 }
 
 resource "vault_policy" "grafana" {
