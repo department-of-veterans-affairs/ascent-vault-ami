@@ -13,7 +13,7 @@ resource "vault_aws_auth_backend_role" "docker" {
   bound_iam_role_arn   = "${var.docker_role_arn}"
   ttl                  = 60
   max_ttl              = 120
-  policies             = ["${vault_policy.sign-csr.name}", "${vault_policy.ssl_certificates.name}"]
+  policies             = ["${vault_policy.ssl_certificates.name}"]
 
   depends_on = ["vault_aws_auth_backend_client.client"]
 }
