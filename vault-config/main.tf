@@ -68,11 +68,6 @@ resource "vault_policy" "refdata" {
   policy = "${file("${path.module}/policy/refdata.hcl")}"
 }
 
-resource "vault_policy" "sign-csr" {
-  name   = "sign-csr"
-  policy = "${file("${path.module}/policy/sign-csr.hcl")}"
-}
-
 resource "vault_policy" "sonar" {
   name   = "sonar"
   policy = "${file("${path.module}/policy/sonar.hcl")}"
