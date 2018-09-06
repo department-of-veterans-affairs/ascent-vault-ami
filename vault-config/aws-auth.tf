@@ -15,7 +15,6 @@ resource "vault_aws_auth_backend_role" "proxy" {
   role                 = "vetservices"
   auth_type            = "ec2"
   bound_iam_role_arn   = "${var.role_arn}"
-  inferred_entity_type = "ec2_instance"
   ttl                  = 60
   max_ttl              = 120
   policies             = ["${vault_policy.ssl_certificates.name}"]
@@ -28,7 +27,6 @@ resource "vault_aws_auth_backend_role" "docker" {
   role                 = "vetservices"
   auth_type            = "ec2"
   bound_iam_role_arn   = "${var.docker_role_arn}"
-  inferred_entity_type = "ec2_instance"
   ttl                  = 60
   max_ttl              = 120
   policies             = ["${vault_policy.ssl_certificates.name}", "${vault_policy.sign-csr.name}"]
