@@ -1,9 +1,9 @@
 ###############################################################################
 #
-# Trusted and Client SSL Certificates 
+# Trusted and Client SSL Certificates
 #
 # Load the set of SSL certificates that will be used by our applications
-# to authenticate to external partner services. 
+# to authenticate to external partner services.
 ###############################################################################
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -43,6 +43,16 @@ jxSZnE0qnsHhfTuvcqdFuhOWKU4Z0BqYBvQ3lBetoxi6PrABDJXWKTUgNX31EGDk
 92hiHuwZ4STyhxGs6QiA
 -----END CERTIFICATE-----")}
 }
+EOT
+}
+
+resource "vault_generic_secret" "vetsgov-evss" {
+  path = "secret/ssl/trusted/vetsgov"
+
+  data_json = <<EOT
+  {
+    "certificate": ${jsonencode(file(var.vetsgov_trusted_cert_file))}
+  }
 EOT
 }
 
