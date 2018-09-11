@@ -3,8 +3,7 @@ resource "vault_generic_secret" "certificate" {
 
   data_json = <<EOT
   {
-    "certificate": ${jsonencode(file(var.certificate_file))}
+    "certificate": ${jsonencode(var.certificate)}
   }
 EOT
 }
-

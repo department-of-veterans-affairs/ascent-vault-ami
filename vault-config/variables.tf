@@ -23,8 +23,8 @@ variable "vbms_private_key_file" {
   description = "Path to private key for VBMS client certificate. Should be in PEM format"
 }
 
-variable "vetsgov_trusted_cert_file" {
-  description = "Path to a certificate that for trusting vets.gov services"
+variable "vetsgov_certificate" {
+  description = "The certificate string of the vets.gov trusted certificate. Should be in PEM format"
 }
 
 variable "role_arn" {

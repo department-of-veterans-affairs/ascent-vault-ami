@@ -46,15 +46,14 @@ jxSZnE0qnsHhfTuvcqdFuhOWKU4Z0BqYBvQ3lBetoxi6PrABDJXWKTUgNX31EGDk
 EOT
 }
 
-resource "vault_generic_secret" "vetsgov-evss" {
-  path = "secret/ssl/trusted/vetsgov"
 
-  data_json = <<EOT
-  {
-    "certificate": ${jsonencode(file(var.vetsgov_trusted_cert_file))}
-  }
-EOT
+
+module "vetsgov-evss" {
+  source= "./add-cert"
+  alias = "vetsgov"
+  certificate = "${var.vetsgov_certificate}"
 }
+
 
 resource "vault_generic_secret" "vbms" {
   path = "secret/ssl/trusted/vbms"
