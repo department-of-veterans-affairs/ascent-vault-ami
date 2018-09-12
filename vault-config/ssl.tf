@@ -1,9 +1,9 @@
 ###############################################################################
 #
-# Trusted and Client SSL Certificates 
+# Trusted and Client SSL Certificates
 #
 # Load the set of SSL certificates that will be used by our applications
-# to authenticate to external partner services. 
+# to authenticate to external partner services.
 ###############################################################################
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -45,6 +45,15 @@ jxSZnE0qnsHhfTuvcqdFuhOWKU4Z0BqYBvQ3lBetoxi6PrABDJXWKTUgNX31EGDk
 }
 EOT
 }
+
+
+
+module "vetsgov-evss" {
+  source= "./add-cert"
+  alias = "vetsgov"
+  certificate = "${var.vetsgov_certificate}"
+}
+
 
 resource "vault_generic_secret" "vbms" {
   path = "secret/ssl/trusted/vbms"
