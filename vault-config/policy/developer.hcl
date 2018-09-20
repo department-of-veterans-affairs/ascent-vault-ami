@@ -9,3 +9,11 @@ path "secret/ascent-config" {
 path "secret/ascent-dashboard" {
     capabilities = ["read", "list"]
 }
+
+path "secret/ascent-gateway" {
+    capabilities = ["read", "list"]
+}
+
+path "secret/application" {
+    capabilities = ["read", "list"]
+}

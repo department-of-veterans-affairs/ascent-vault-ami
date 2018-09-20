@@ -36,3 +36,14 @@ resource "vault_generic_secret" "github_devops" {
 }
 EOT
 }
+
+resource "vault_generic_secret" "github_developers" {
+  path = "auth/github/map/teams/ascent-write"
+
+  data_json = <<EOT
+{
+  "key": "ascent-write",
+  "value": "developer"
+}
+EOT
+}
