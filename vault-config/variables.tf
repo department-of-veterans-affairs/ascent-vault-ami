@@ -23,6 +23,10 @@ variable "vbms_private_key_file" {
   description = "Path to private key for VBMS client certificate. Should be in PEM format"
 }
 
+variable "vetsgov_certificate" {
+  description = "The certificate string of the vets.gov trusted certificate. Should be in PEM format"
+}
+
 variable "role_arn" {
   description = "The ARN of the role that the EC2 Instance will have when making requests to vault"
 }
