@@ -17,3 +17,7 @@ path "secret/ascent-gateway" {
 path "secret/application" {
     capabilities = ["read", "list"]
 }
+
+path "secret/ssl" {
+    capabilities = ["read", "list"]
+}
