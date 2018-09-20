@@ -54,6 +54,12 @@ module "vetsgov-evss" {
   certificate = "${var.vetsgov_certificate}"
 }
 
+module "va-internal-s2-ica1-v1" {
+  source= "./add-cert"
+  alias = "va-internal-s2-ica1-v1"
+  certificate = "${file("${path.module}/trusted-certs/va-internal-s2-ica1-v1.pem")}"
+}
+
 
 resource "vault_generic_secret" "vbms" {
   path = "secret/ssl/trusted/vbms"
