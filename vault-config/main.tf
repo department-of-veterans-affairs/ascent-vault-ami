@@ -19,6 +19,11 @@ resource "vault_policy" "devops" {
     policy = "${file("${path.module}/policy/devops.hcl")}"
 }
 
+resource "vault_policy" "developer" {
+    name = "developer"
+    policy = "${file("${path.module}/policy/developer.hcl")}"
+}
+
 resource "vault_policy" "ascent-app" {
     name = "ascent-app"
     policy = "${file("${path.module}/policy/ascent-app.hcl")}"
