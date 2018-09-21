@@ -60,6 +60,17 @@ module "va-internal-s2-ica1-v1" {
   certificate = "${file("${path.module}/trusted-certs/va-internal-s2-ica1-v1.pem")}"
 }
 
+module "va-internal-s2-rca1-v1" {
+  source= "./add-cert"
+  alias = "va-internal-s2-rca1-v1"
+  certificate = "${file("${path.module}/trusted-certs/va-internal-s2-rca1-v1.pem")}"
+}
+
+module "va-internal-s2-ica2-v1" {
+  source= "./add-cert"
+  alias = "va-internal-s2-ica2-v1"
+  certificate = "${file("${path.module}/trusted-certs/va-internal-s2-ica2-v1.pem")}"
+}
 
 resource "vault_generic_secret" "vbms" {
   path = "secret/ssl/trusted/vbms"
