@@ -1,3 +1,7 @@
+path "secret/" {
+    capabilities = ["list"]
+}
+
 path "secret/ascent-discovery" {
     capabilities = ["read", "list"]
 }
@@ -18,6 +22,6 @@ path "secret/application" {
     capabilities = ["read", "list"]
 }
 
-path "secret/ssl" {
+path "secret/ssl/*" {
     capabilities = ["read", "list"]
 }
