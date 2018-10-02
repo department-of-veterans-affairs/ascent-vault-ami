@@ -96,6 +96,11 @@ resource "vault_policy" "grafana" {
     policy = "${file("${path.module}/policy/grafana.hcl")}"
 }
 
+resource "vault_policy" "document" {
+    name = "document"
+    policy = "${file("${path.module}/policy/document.hcl")}"
+}
+
 ###############################################################################
 #
 # Vault Roles
@@ -166,6 +171,23 @@ resource "vault_generic_secret" "role_intenttofile" {
   "renewable": true,
   "name": "intenttofile",
   "allowed_policies": ["ascent-app","intenttofile"]
+}
+EOT
+}
+
+resource "vault_generic_secret" "role_document" {
+  path = "auth/token/roles/document"
+
+  data_json = <<EOT
+{
+  "disallowed_policies": [],
+  "explicit_max_ttl": 0,
+  "orphan": false,
+  "path_suffix": "",
+  "period": 0,
+  "renewable": true,
+  "name": "document",
+  "allowed_policies": ["ascent-app","document"]
 }
 EOT
 }
