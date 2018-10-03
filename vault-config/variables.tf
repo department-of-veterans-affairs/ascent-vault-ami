@@ -43,9 +43,6 @@ variable "ascent_gateway_private_key" {
   description = "Path to the file containing the private key for the ascent-gateway application. File should be in PEM format."
 }
 
-variable "docker_role_arn" {
-  description = "The ARN of the profile that the docker EC2 instances will assume while making requests to vault"
-}
 
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS
