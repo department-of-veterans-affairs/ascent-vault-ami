@@ -49,25 +49,25 @@ EOT
 
 
 module "vetsgov-evss" {
-  source= "./add-cert"
+  source= "./add-vetservices-client"
   alias = "vetsgov"
   certificate = "${var.vetsgov_certificate}"
 }
 
 module "va-internal-s2-ica1-v1" {
-  source= "./add-cert"
+  source= "./add-trusted-cert"
   alias = "va-internal-s2-ica1-v1"
   certificate = "${file("${path.module}/trusted-certs/va-internal-s2-ica1-v1.pem")}"
 }
 
 module "va-internal-s2-rca1-v1" {
-  source= "./add-cert"
+  source= "./add-trusted-cert"
   alias = "va-internal-s2-rca1-v1"
   certificate = "${file("${path.module}/trusted-certs/va-internal-s2-rca1-v1.pem")}"
 }
 
 module "va-internal-s2-ica2-v1" {
-  source= "./add-cert"
+  source= "./add-trusted-cert"
   alias = "va-internal-s2-ica2-v1"
   certificate = "${file("${path.module}/trusted-certs/va-internal-s2-ica2-v1.pem")}"
 }
