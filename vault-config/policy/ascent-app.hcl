@@ -46,6 +46,24 @@ path "secret/ssl/trusted/*" {
     capabilities = ["read", "list"]
 }
 
+# Give application access to the set of client SSL certificates
+path "secret/ssl/client" {
+    capabilities = ["read", "list"]
+}
+
+path "secret/ssl/client/*" {
+    capabilities = ["read", "list"]
+}
+
+# Give application access to the set of trusted vetservice client SSL certificates
+path "secret/ssl/vetservices-client" {
+    capabilities = ["read", "list"]
+}
+
+path "secret/ssl/vetservices-client/*" {
+    capabilities = ["read", "list"]
+}
+
 # Give applications the ability to request certificates for themselves
 path "pki/issue/vetservices" {
     capabilities = ["create", "update"]
