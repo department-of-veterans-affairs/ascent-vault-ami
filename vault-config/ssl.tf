@@ -111,7 +111,7 @@ EOT
 }
 
 resource "vault_generic_secret" "doc_services_vbms_client" {
-  path = "secret/ssl/client/docservices/vbms"
+  path = "secret/ssl/client/vetservices-document/vbms"
 
   data_json = <<EOT
 {
