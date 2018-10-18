@@ -140,3 +140,43 @@ ijW+Igy86PySB9Ec8rjPghDzKW/n40ftkQoNLoE=
 }
 EOT
 }
+
+resource "vault_generic_secret" "doc_services_vbms_crypto" {
+  path = "secret/ssl/client/vetservices-document/vbms_cert"
+
+  data_json = <<EOT
+{
+  "certificate": ${jsonencode("-----BEGIN CERTIFICATE-----
+MIIDfzCCAmcCAQQwDQYJKoZIhvcNAQEFBQAwYzELMAkGA1UEBhMCVVMxETAPBgNV
+BAgTCFZpcmdpbmlhMREwDwYDVQQHEwhDdWxwZXBlcjENMAsGA1UEChMEQUlERTEM
+MAoGA1UECxMDQ0EyMREwDwYDVQQDEwhBSURFIENBMjAeFw0xMjEwMDUxMjI2NDZa
+Fw0yMjEwMDMxMjI2NDZaMIGnMQswCQYDVQQGEwJVUzERMA8GA1UECBMIVmlyZ2lu
+aWExETAPBgNVBAcTCEN1bHBlcGVyMS4wLAYDVQQKEyVUaGUgVVMgRGVwYXJ0bWVu
+dCBvZiBWZXRlcmFucyBBZmZhaXJzMRswGQYDVQQLExJWQk1TIFVBVCBzZXJ2ZXJr
+ZXkxJTAjBgNVBAMTHHZibXMuY21zLnVhdC5haWRlLm9pdC52YS5nb3YwggEiMA0G
+CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDEb9xOTYAPiiFpdeT3bjdSICr5Je1l
+WH+BYj0w3CzPMOi/eNKz8/iOA3M/g7ECVwH0JtihCHx30jbkeWjJuvgwAxbQhHFi
+4UuJCUQ/5nBbqG8jr4NMsA1ChRWVHnRxCO/NiPhK3d0qyhyyNUddWTQono++KReh
+qFmyOdPtF7oHCBBA6Ywbn6CCb0Nohxl/CIhBpk2fBJ8xDA5X01eZGpMQGcy33MBU
+K25Rf2QCI9/7Xsr3PZItxNTotiPSTod5gg30qZNsEoYrhpBSjrW4TyObk1jMixcx
+WaPDLB0p0RF63EPRD2lMz2A1UqNThNQzUu60IT9oJwUVm3vqqhD2DIAJAgMBAAEw
+DQYJKoZIhvcNAQEFBQADggEBAGNIRgY54vLs6ZsfZ3+76783u9HZw5zl49fgRmEu
+jMONRD6qEW65jvZLGNjuQm9cuYv9R/5XuvnDeALl+glYMv4+9NA9D7ZQeEayPVUP
+EBP1HfSVoGkIMOhGfHkmOzB3rOkN7f66p9PvvSFke5JkbfjsRNC8ZUjEqy76Gsz9
+eX9xd7usD7tzWL6YuD2yZTRVz8YNOGgzuxYPc2liZaBZiodNrD+7gxks37IUDXoC
+7zqWGobGDvbO8icqy9Ml+/HGcuR6vCbBRdJsy+655GP4S4LFbPWvkp7+I2+16/h6
+yVnLWQEPfjEcLWlT+QsKEBa+SWKRZurYUCYOtxGXuwbm0as=
+-----END CERTIFICATE-----")}
+}
+EOT
+}
+
+resource "vault_generic_secret" "doc_services_vbms_sign" {
+  path = "secret/ssl/client/vetservices-document/ebn_vbms_cert"
+
+  data_json = <<EOT
+{
+  "certificate": ${jsonencode(file(var.ebn_vbms_key_file))}
+}
+EOT
+}

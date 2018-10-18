@@ -47,6 +47,10 @@ variable "vbms_saml_token" {
   description = "Path to the file containing the SAML token for authenticating to the VBMS service."
 }
 
+variable "ebn_vbms_key_file" {
+  description = "The EBN VBMS key file used to sign the SAML token."
+}
+
 
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS
