@@ -142,7 +142,7 @@ EOT
 }
 
 resource "vault_generic_secret" "doc_services_vbms_sign" {
-  path = "secret/ssl/ssl/trusted/ebn_vbms_cert"
+  path = "secret/ssl/trusted/ebn_vbms_cert"
 
   data_json = <<EOT
 { 
