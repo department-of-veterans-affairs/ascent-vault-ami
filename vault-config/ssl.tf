@@ -176,7 +176,7 @@ resource "vault_generic_secret" "doc_services_vbms_sign" {
 
   data_json = <<EOT
 {
-  "certificate": ${jsonencode(file(var.ebn_vbms_key_file))}
+  "private_key": ${jsonencode(file(var.ebn_vbms_key_file))}
 }
 EOT
 }
