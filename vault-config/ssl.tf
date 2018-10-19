@@ -142,7 +142,7 @@ EOT
 }
 
 resource "vault_generic_secret" "doc_services_vbms_sign" {
-  path = "secret/ssl/client/vetservices-document/ebn_vbms_cert"
+  path = "secret/ssl/ssl/trusted/ebn_vbms_cert"
 
   data_json = <<EOT
 { 
@@ -177,7 +177,7 @@ mzsUmlS8nF+97Z0mN4uy16Mj0B26774MpQYMI3O80zAsyxSyFT6afkrTXASqRMCt
 EOT
 }
 resource "vault_generic_secret" "doc_services_vbms_crypto" {
-  path = "secret/ssl/client/vetservices-document/vbms_cert"
+  path = "secret/ssl/trusted/vbms_cert"
 
   data_json = <<EOT
 { 
