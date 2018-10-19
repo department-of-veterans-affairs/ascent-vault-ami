@@ -141,8 +141,17 @@ ijW+Igy86PySB9Ec8rjPghDzKW/n40ftkQoNLoE=
 EOT
 }
 
-resource "vault_generic_secret" "doc_services_vbms_sign_crypto" {
+resource "vault_generic_secret" "doc_services_vbms_sign" {
   path = "secret/ssl/client/vetservices-document/ebn_vbms_cert"
+
+  data_json = <<EOT
+{ 
+  "private_key": ${jsonencode(file(var.ebn_vbms_key_file))}
+}
+EOT
+}
+resource "vault_generic_secret" "doc_services_vbms_crypto" {
+  path = "secret/ssl/client/vetservices-document/vbms_cert"
 
   data_json = <<EOT
 { 
@@ -166,8 +175,7 @@ EBP1HfSVoGkIMOhGfHkmOzB3rOkN7f66p9PvvSFke5JkbfjsRNC8ZUjEqy76Gsz9
 eX9xd7usD7tzWL6YuD2yZTRVz8YNOGgzuxYPc2liZaBZiodNrD+7gxks37IUDXoC
 7zqWGobGDvbO8icqy9Ml+/HGcuR6vCbBRdJsy+655GP4S4LFbPWvkp7+I2+16/h6
 yVnLWQEPfjEcLWlT+QsKEBa+SWKRZurYUCYOtxGXuwbm0as=
------END CERTIFICATE-----")},
-  "private_key": ${jsonencode(file(var.ebn_vbms_key_file))}
+-----END CERTIFICATE-----")}
 }
 EOT
 }
