@@ -72,6 +72,18 @@ module "va-internal-s2-ica2-v1" {
   certificate = "${file("${path.module}/trusted-certs/va-internal-s2-ica2-v1.pem")}"
 }
 
+module "vbms-ca" {
+  source = "./add-trusted-cert"
+  alias = "vbms-ca2"
+  certificate = "${file("${path.module}/trusted-certs/vbms-ca2.pem")}"
+}
+
+module "vbms-scanning-ca" {
+  source = "./add-trusted-cert"
+  alias = "vbms-scanningca"
+  certificate = "${file("${path.module}/trusted-certs/vbms-scanningca.pem")}"
+}
+
 resource "vault_generic_secret" "vbms" {
   path = "secret/ssl/trusted/vbms"
 
@@ -145,7 +157,7 @@ resource "vault_generic_secret" "doc_services_vbms_sign" {
   path = "secret/ssl/trusted/ebn_vbms_cert"
 
   data_json = <<EOT
-{ 
+{
   "certificate": ${jsonencode("-----BEGIN CERTIFICATE-----
 MIIEkDCCA3igAwIBAgIBGjANBgkqhkiG9w0BAQUFADB1MQswCQYDVQQGEwJVUzER
 MA8GA1UECBMIVmlyZ2luaWExETAPBgNVBAcTCEN1bHBlcGVyMRQwEgYDVQQKEwtT
@@ -180,7 +192,7 @@ resource "vault_generic_secret" "doc_services_vbms_crypto" {
   path = "secret/ssl/trusted/vbms_cert"
 
   data_json = <<EOT
-{ 
+{
   "certificate": ${jsonencode("-----BEGIN CERTIFICATE-----
 MIIDfzCCAmcCAQQwDQYJKoZIhvcNAQEFBQAwYzELMAkGA1UEBhMCVVMxETAPBgNV
 BAgTCFZpcmdpbmlhMREwDwYDVQQHEwhDdWxwZXBlcjENMAsGA1UEChMEQUlERTEM
