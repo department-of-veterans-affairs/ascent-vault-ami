@@ -75,13 +75,13 @@ module "va-internal-s2-ica2-v1" {
 module "vbms-ca" {
   source = "./add-trusted-cert"
   alias = "vbms-ca2"
-  certificate = "${file("${path.module}/trusted-certs/vbms-ca2.pem")}"
+  certificate = "${file("${path.module}/trusted-certs/vbms-ca2.crt")}"
 }
 
 module "vbms-scanning-ca" {
   source = "./add-trusted-cert"
   alias = "vbms-scanningca"
-  certificate = "${file("${path.module}/trusted-certs/vbms-scanningca.pem")}"
+  certificate = "${file("${path.module}/trusted-certs/vbms-scanningca.crt")}"
 }
 
 resource "vault_generic_secret" "vbms" {
