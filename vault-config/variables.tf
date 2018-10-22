@@ -43,6 +43,10 @@ variable "ascent_gateway_private_key" {
   description = "Path to the file containing the private key for the ascent-gateway application. File should be in PEM format."
 }
 
+variable "vbms_saml_token" {
+  description = "Path to the file containing the SAML token for authenticating to the VBMS service."
+}
+
 
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS
