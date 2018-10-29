@@ -97,6 +97,17 @@ resource "random_string" "zipkin_password" {
   number = true
 }
 
+resource "vault_generic_secret" "zipkin" {
+  path = "secret/ascent-zipkin"
+
+  data_json = <<EOT
+{
+  "username": "zipkin",
+  "password": "${random_string.zipkin_password.result}"
+}
+EOT
+}
+
 
 # ---------------------------------------------------------------------------------------------------------------------
 # DASHBOARD SERVICE
@@ -133,6 +144,25 @@ resource "vault_generic_secret" "gateway-cert" {
 {
   "certificate": ${jsonencode(file(var.ascent_gateway_certificate))},
   "private_key": ${jsonencode(file(var.ascent_gateway_private_key))}
+}
+EOT
+}
+
+resource "random_string" "gateway_password" {
+  length = 30
+  special = true
+  upper = true
+  lower = true
+  number = true
+}
+
+resource "vault_generic_secret" "gateway" {
+  path = "secret/ascent-gateway"
+
+  data_json = <<EOT
+{
+  "username": "gateway",
+  "password": "${random_string.gateway_password.result}"
 }
 EOT
 }
