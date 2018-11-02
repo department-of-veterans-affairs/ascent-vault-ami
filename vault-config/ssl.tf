@@ -84,8 +84,9 @@ module "vbms-scanning-ca" {
   certificate = "${file("${path.module}/trusted-certs/vbms-scanningca.crt")}"
 }
 
+# VBMS Public Key used to encrypt messages we send to them
 resource "vault_generic_secret" "vbms" {
-  path = "secret/ssl/trusted/vbms"
+  path = "secret/ssl/client/vetservices-document/vbms-public-cert"
 
   data_json = <<EOT
 {
@@ -117,11 +118,14 @@ WX8nrs4+n3FG4gQRfoNYyr6fxPsAwOMxudSb7EAV9AqDofyccKFSTyYpr6GV8eTB
 KFamU/pBs+EmffMpG/9yq+2NT9hpZ7HRhdud6+iZGsL9kXVT9q/TXuslDDX30/qr
 OQfgjghOu6F/5042DGMsOYU0MaAo496XdLsLnGH06nxD8oeXM1+ubrL4jCgG33xg
 6w+s6MbFI69l77ANo02P5scUPXqRbnOOiDrZumdoJXzpV1c97cu0
------END CERTIFICATE-----")}
+-----END CERTIFICATE-----")},
+"description": "VBMS Public Key used to encrypt messages sent to them."
 }
 EOT
 }
 
+# VetService public/private key pair that is used for both authentication 
+# with VBMS and to decrypt messages that are received from VBMS.
 resource "vault_generic_secret" "doc_services_vbms_client" {
   path = "secret/ssl/client/vetservices-document/vbms"
 
@@ -148,72 +152,8 @@ RLGMY8PzUNM3sdVXEFxOsZ3a5R562OD1GZbz975AvkHf4IR6Oq4KmUVgvogwA0B7
 oLe6HsqEztBfdlKTvQEbLYqwlgJ8M1L1fzF0YiW81OTpjPoj4qEhEfgGlGnMwq2B
 ijW+Igy86PySB9Ec8rjPghDzKW/n40ftkQoNLoE=
 -----END CERTIFICATE-----")},
-"private_key": ${jsonencode(file(var.vbms_private_key_file))}
-}
-EOT
-}
-
-resource "vault_generic_secret" "doc_services_vbms_sign" {
-  path = "secret/ssl/trusted/ebn_vbms_cert"
-
-  data_json = <<EOT
-{
-  "certificate": ${jsonencode("-----BEGIN CERTIFICATE-----
-MIIEkDCCA3igAwIBAgIBGjANBgkqhkiG9w0BAQUFADB1MQswCQYDVQQGEwJVUzER
-MA8GA1UECBMIVmlyZ2luaWExETAPBgNVBAcTCEN1bHBlcGVyMRQwEgYDVQQKEwtT
-Y2FubmluZyBDQTEUMBIGA1UECxMLU2Nhbm5pbmcgQ0ExFDASBgNVBAMTC1NjYW5u
-aW5nIENBMB4XDTEyMTIxOTEzNTUxOVoXDTIyMTIxNzEzNTUxOVowfjELMAkGA1UE
-BhMCVVMxETAPBgNVBAgTCFZpcmdpbmlhMREwDwYDVQQHEwhDdWxwZXBlcjESMBAG
-A1UEChMJRUJFTkVGSVRTMRYwFAYDVQQLEw1FQkVORUZJVFMgVUFUMR0wGwYDVQQD
-ExRlYmVuZWZpdHMtdWF0LWNsaWVudDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
-AQoCggEBANROOdYEuknuKixH6NGnYJMeGabdmvRIPCyAYGsRjy5vFgpK0IVX4/aN
-1H3CIV6ZcH9ivw2xAzkcwauEOdXhACjMG4gjJS6B115wAX1iXHkgr+e0LGGD05bU
-gtbO1leX02/ukyZtZuRXtkke4uiDEY2t2EmPQTmcESYNHZZZUHrqxzRmKCqWqnKw
-4vkHo+cwhG9nZaFSgc72tL/pD3WAXsgWeGF+k6VZFmWb/oK5HrHQtFBKgIYZRitx
-TgmxpmfY5pHLuwLkRFmmfkmlaydv4wKyEI5PnEhxvlOQEDvwXpeXAhYdYr2kVBAp
-63TijrrywTK9AZAsfUl2h7PG+v5/HAMCAwEAAaOCASAwggEcMAkGA1UdEwQCMAAw
-EQYJYIZIAYb4QgEBBAQDAgeAMDMGCWCGSAGG+EIBDQQmFiRPcGVuU1NMIEdlbmVy
-YXRlZCBDbGllbnQgQ2VydGlmaWNhdGUwHQYDVR0OBBYEFBNRSr8JTYQArhVAR4cd
-7juu4Q27MIGnBgNVHSMEgZ8wgZyAFFzHrpaasyE0EMLdnw9TI/+TxrmaoXmkdzB1
-MQswCQYDVQQGEwJVUzERMA8GA1UECBMIVmlyZ2luaWExETAPBgNVBAcTCEN1bHBl
-cGVyMRQwEgYDVQQKEwtTY2FubmluZyBDQTEUMBIGA1UECxMLU2Nhbm5pbmcgQ0Ex
-FDASBgNVBAMTC1NjYW5uaW5nIENBggkAxMbd9g9QeCwwDQYJKoZIhvcNAQEFBQAD
-ggEBANPNIpRkTNXiNBibKWbttoELBAscjS75cJygLR0IrYFZ5NSlSj3Jf82YKh9X
-rgqqzqhAsG/3SqZCwjNd8kjsJjGcPPxYAcXYMDUohE7Y11ftxtlKi3mcvtNCdh81
-MBK/5MSGMnsLIsw3KESCFf/2efj1f+KvIJqxwcEME8yOIRlytKhb30pHEMQ4/vDy
-RGhjGO99vw5z6qzeQ0w+JaVeg2OmlswlocCCSbJhs8Wr71pqpvfuKmxVACc/WrTz
-mzsUmlS8nF+97Z0mN4uy16Mj0B26774MpQYMI3O80zAsyxSyFT6afkrTXASqRMCt
-/4smTew4LhEb3YxdXV2Khiu4wRY=
------END CERTIFICATE-----")}
-}
-EOT
-}
-resource "vault_generic_secret" "doc_services_vbms_crypto" {
-  path = "secret/ssl/trusted/vbms_cert"
-
-  data_json = <<EOT
-{
-  "certificate": ${jsonencode("-----BEGIN CERTIFICATE-----
-MIIDfzCCAmcCAQQwDQYJKoZIhvcNAQEFBQAwYzELMAkGA1UEBhMCVVMxETAPBgNV
-BAgTCFZpcmdpbmlhMREwDwYDVQQHEwhDdWxwZXBlcjENMAsGA1UEChMEQUlERTEM
-MAoGA1UECxMDQ0EyMREwDwYDVQQDEwhBSURFIENBMjAeFw0xMjEwMDUxMjI2NDZa
-Fw0yMjEwMDMxMjI2NDZaMIGnMQswCQYDVQQGEwJVUzERMA8GA1UECBMIVmlyZ2lu
-aWExETAPBgNVBAcTCEN1bHBlcGVyMS4wLAYDVQQKEyVUaGUgVVMgRGVwYXJ0bWVu
-dCBvZiBWZXRlcmFucyBBZmZhaXJzMRswGQYDVQQLExJWQk1TIFVBVCBzZXJ2ZXJr
-ZXkxJTAjBgNVBAMTHHZibXMuY21zLnVhdC5haWRlLm9pdC52YS5nb3YwggEiMA0G
-CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDEb9xOTYAPiiFpdeT3bjdSICr5Je1l
-WH+BYj0w3CzPMOi/eNKz8/iOA3M/g7ECVwH0JtihCHx30jbkeWjJuvgwAxbQhHFi
-4UuJCUQ/5nBbqG8jr4NMsA1ChRWVHnRxCO/NiPhK3d0qyhyyNUddWTQono++KReh
-qFmyOdPtF7oHCBBA6Ywbn6CCb0Nohxl/CIhBpk2fBJ8xDA5X01eZGpMQGcy33MBU
-K25Rf2QCI9/7Xsr3PZItxNTotiPSTod5gg30qZNsEoYrhpBSjrW4TyObk1jMixcx
-WaPDLB0p0RF63EPRD2lMz2A1UqNThNQzUu60IT9oJwUVm3vqqhD2DIAJAgMBAAEw
-DQYJKoZIhvcNAQEFBQADggEBAGNIRgY54vLs6ZsfZ3+76783u9HZw5zl49fgRmEu
-jMONRD6qEW65jvZLGNjuQm9cuYv9R/5XuvnDeALl+glYMv4+9NA9D7ZQeEayPVUP
-EBP1HfSVoGkIMOhGfHkmOzB3rOkN7f66p9PvvSFke5JkbfjsRNC8ZUjEqy76Gsz9
-eX9xd7usD7tzWL6YuD2yZTRVz8YNOGgzuxYPc2liZaBZiodNrD+7gxks37IUDXoC
-7zqWGobGDvbO8icqy9Ml+/HGcuR6vCbBRdJsy+655GP4S4LFbPWvkp7+I2+16/h6
-yVnLWQEPfjEcLWlT+QsKEBa+SWKRZurYUCYOtxGXuwbm0as=
------END CERTIFICATE-----")}
+"private_key": ${jsonencode(file(var.vbms_private_key_file))},
+"description": "VetService public/private key pair that is used for both authentication with VBMS and to decrypt messages that are received from VBMS."
 }
 EOT
 }
