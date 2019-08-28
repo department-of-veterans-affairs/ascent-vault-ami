@@ -1,24 +1,17 @@
-# ascent-vault-ami
-Repository for [Packer](https://www.packer.io/) script for creating Consul and Vault AMIs.
+# This repository is no longer maintained.
 
-# Dev Setup
-Install [Packer](https://www.packer.io/) on your local machine.
+Issue reports and pull requests will not be attended. 
 
-## Setting AWS Authentication values
-Create a __aws-auth.json__ file somewhere on your local machine with the following contents:
-```json
-{
-  "aws_access_key": "<your aws access key here>",
-  "aws_secret_key": "<your secret key here>"
-}
-```
+To deploy spring boot and spring cloud microservices on BIP Platform, refer to the following repositories:
 
-# Building the AMIs
-1. After creating your __aws-auth.json__ file, run the following command:
-```bash
-./build.sh <path to aws-auth.json>
-```
-2. This will create the following AMIs in your AWS environment
-* ascent-vault {{timestamp}}
-* ascent-consul-server {{timestamp}}
-* ascent-consul-client {{timestamp}}
+**DSVA**
+1. BIP Framework: https://github.com/department-of-veterans-affairs/bip-framework
+2. BIP Reference Person Example Service: https://github.com/department-of-veterans-affairs/bip-reference-person
+3. BIP Archetype Service: https://github.com/department-of-veterans-affairs/bip-archetype-service
+4. BIP Jenkins Library: https://github.com/department-of-veterans-affairs/os-svc-jenkins-lib/
+
+**EPMO**
+1. BIP Framework: https://github.ec.va.gov/EPMO/bip-framework
+2. BIP Reference Person Example Service: https://github.ec.va.gov/EPMO/bip-reference-person
+3. BIP Archetype Service: https://github.ec.va.gov/EPMO/bip-archetype-service
+4. BIP Jenkins Library: https://github.ec.va.gov/EPMO/bip-jenkins-lib
